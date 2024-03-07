@@ -17,7 +17,7 @@ use App\Http\Controllers\Backend\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.home.home');
 });
 
 Route::get('/dashboard', function () {
