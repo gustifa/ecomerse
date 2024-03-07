@@ -64,7 +64,7 @@
                         <div class="row">
                           <div class="form-group col-md-12 col-12">
                             <label>Password Lama</label>
-                            <input type="password" name="password_lama" class="form-control" value="{{Auth::user()->password}}">
+                            <input type="password" name="password_lama" class="form-control">
                             
                           </div>
 

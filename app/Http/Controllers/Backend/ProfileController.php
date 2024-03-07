@@ -15,11 +15,11 @@ class ProfileController extends Controller
 
     public function updateProfile(Request $request){
         // dd($request->all());
-        // $request->validate([
-        //     'name' => ['required', 'max:100'],
-        //     // 'email' => ['required', 'email','unique:users, email,'.Auth::user()->id]
-        //     'email' => ['required', 'email','unique:users']
-        // ]);
+        $request->validate([
+            'name' => ['required', 'max:100'],
+            // 'email' => ['required', 'email','unique:users, email,'.Auth::user()->id]
+            'email' => ['required', 'email','unique:users']
+        ]);
 
 
         $user = Auth::user();
@@ -42,15 +42,16 @@ class ProfileController extends Controller
 
     public function updatePassword(Request $request){
         // dd($request->all());
-        // $request->validate([
-        //     'password_lama' => ['required', 'password_lama'],
-        //     'password' => ['required', 'confirmed', 'min:8']
-        // ]);
+        $request->validate([
+            'password_lama' => ['required', 'password_lama'],
+            'password' => ['required', 'confirmed', 'min:8']
+        ]);
 
         $request->user()->update([
             'password' => bcrypt($request->password)
         ]);
-
+        
+        toastr()->success('Berhasil Update Password Profile');
         return redirect()->back();
     }
 }
