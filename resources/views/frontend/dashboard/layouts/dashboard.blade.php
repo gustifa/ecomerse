@@ -1,50 +1,6 @@
-@extends('frontend.dashboard.layouts.master')
+@extends('frontend.dashboard.master')
 @section('content')
-<!--=============================
-    DASHBOARD MENU START
-  ==============================-->
-  <div class="wsus__dashboard_menu">
-    <div class="wsusd__dashboard_user">
-      <img src="{{asset('frontend/images/dashboard_user.jpg')}}" alt="img" class="img-fluid">
-      <p>anik roy</p>
-    </div>
-  </div>
-  <!--=============================
-    DASHBOARD MENU END
-  ==============================-->
 
-
-  <!--=============================
-    DASHBOARD START
-  ==============================-->
-  <section id="wsus__dashboard">
-    <div class="container-fluid">
-      <div class="dashboard_sidebar">
-        <span class="close_icon">
-          <i class="far fa-bars dash_bar"></i>
-          <i class="far fa-times dash_close"></i>
-        </span>
-        <a href="dsahboard.html" class="dash_logo"><img src="{{asset('frontend/images/logo.png')}}" alt="logo" class="img-fluid"></a>
-        <ul class="dashboard_link">
-          <li><a class="active" href="dsahboard.html"><i class="fas fa-tachometer"></i>Dashboard</a></li>
-          <li><a href="dsahboard_order.html"><i class="fas fa-list-ul"></i> Orders</a></li>
-          <li><a href="dsahboard_download.html"><i class="far fa-cloud-download-alt"></i> Downloads</a></li>
-          <li><a href="dsahboard_review.html"><i class="far fa-star"></i> Reviews</a></li>
-          <li><a href="dsahboard_wishlist.html"><i class="far fa-heart"></i> Wishlist</a></li>
-          <li><a href="dsahboard_profile.html"><i class="far fa-user"></i> My Profile</a></li>
-          <li><a href="dsahboard_address.html"><i class="fal fa-gift-card"></i> Addresses</a></li>
-          <li>
-            <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            
-                            <a href="{{route('logout')}}" onclick="event.preventDefault();
-                                                this.closest('form').submit();"><i class="far fa-sign-out-alt"></i> Log out</a>
-                        </form>
-           
-        </li>
-        </ul>
-      </div>
       <div class="row">
         <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
           <div class="dashboard_content">
@@ -75,7 +31,7 @@
                   </a>
                 </div>
                 <div class="col-xl-2 col-6 col-md-4">
-                  <a class="wsus__dashboard_item orange" href="dsahboard_profile.html">
+                  <a class="wsus__dashboard_item orange" href="{dsahboard_profile.html"}>
                     <i class="fas fa-user-shield"></i>
                     <p>profile</p>
                   </a>
