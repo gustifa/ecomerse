@@ -6,33 +6,37 @@
             <h3><i class="far fa-user"></i> profile</h3>
             <div class="wsus__dashboard_profile">
               <div class="wsus__dash_pro_area">
-                <h4>basic information</h4>
-                <form>
+                <h4>My Profile</h4>
+                <form action="{{route('user.update.profile')}}" method="post">
+                    @csrf
                   <div class="row">
                     <div class="col-xl-9">
                       <div class="row">
                         <div class="col-xl-6 col-md-6">
+                        <label>Name</label>
                           <div class="wsus__dash_pro_single">
-                            <i class="fas fa-user-tie"></i>
-                            <input type="text" placeholder="First Name">
+                            
+                            <input type="text" placeholder="{{Auth::user()->name}}" name="name">
                           </div>
                         </div>
                         <div class="col-xl-6 col-md-6">
+                        <label>Username</label>
                           <div class="wsus__dash_pro_single">
-                            <i class="fas fa-user-tie"></i>
-                            <input type="text" placeholder="Last Name">
+                           
+                            <input type="text" placeholder="{{Auth::user()->username}}" name="username">
                           </div>
                         </div>
                         <div class="col-xl-6 col-md-6">
+                        <label>Phone</label>
                           <div class="wsus__dash_pro_single">
-                            <i class="far fa-phone-alt"></i>
-                            <input type="text" placeholder="Phone">
+                          
+                            <input type="text" placeholder="{{Auth::user()->phone}}" name="phone">
                           </div>
                         </div>
                         <div class="col-xl-6 col-md-6">
+                        <label>E-mail</label>
                           <div class="wsus__dash_pro_single">
-                            <i class="fal fa-envelope-open"></i>
-                            <input type="email" placeholder="Email">
+                            <input type="email" placeholder="{{Auth::user()->email}}" name="email">
                           </div>
                         </div>
                         <div class="col-xl-12">
@@ -100,6 +104,7 @@
                     </div>
                   </div>
                 </form>
+                
               </div>
             </div>
           </div>

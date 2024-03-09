@@ -10,4 +10,8 @@ class UserProfileController extends Controller
     public function index(){
         return view('frontend.dashboard.layouts.profile');
     }
+
+    public function updateProfile(Request $request){
+         // dd($request->all());
+    }
 }
