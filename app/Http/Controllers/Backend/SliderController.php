@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Traits\ImageUploadTrait;
+use App\DataTables\SliderDataTable;
 
 class SliderController extends Controller
 {
@@ -13,9 +14,10 @@ class SliderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SliderDataTable $dataTable)
     {
-        return view('admin.slider.index');
+        // return view('admin.slider.index');
+        return $dataTable->render('admin.slider.index');
     }
 
     /**
@@ -46,15 +48,16 @@ class SliderController extends Controller
 
         // Handel Image Upload
         $imagePath = $this->uploadImage($request, 'banner', 'uploads');
-
+        $slider->banner = $imagePath; 
         $slider->type = $request->type;
         $slider->title = $request->title;
+        $slider->starting_price = $request->starting_price;
         $slider->btn_url = $request->btn_url;
         $slider->serial = $request->serial;
         $slider->status = $request->status;
         $slider->save();
 
-        toastr('Berhasil ditambahkan', 'success');
+        toastr('Slider Baru Berhasil ditambahkan', 'success');
         return redirect()->back();
     }
 

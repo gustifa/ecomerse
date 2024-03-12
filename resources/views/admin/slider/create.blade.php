@@ -9,6 +9,7 @@
             </div>
           </div>
           <div class="section-body">
+
             
             <div class="row mt-sm-4">
               <div class="col-12 col-md-12 col-lg-12">
@@ -18,6 +19,7 @@
                     <div class="card-header">
                       <h4>Update Profile</h4>
                     </div>
+                    
                     <div class="card-body">
                     	<div class="row">
                           <div class="form-group col-md-12 col-12">
@@ -61,8 +63,8 @@
                           <div class="form-group col-md-5 col-12">
                             <label>Status</label>
                             <select class="form-control" name="status">
-                                <option value=1>Active</option>
-                                <option value=0>Inactive</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
                             </select>
                           </div>
 

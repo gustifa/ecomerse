@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="{{asset('backend/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css')}}">
   <link rel="stylesheet" href="{{asset('backend/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css')}}">
   <link rel="stylesheet" href="//cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('backend/assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('backend/assets/css/components.css')}}">
@@ -77,5 +78,7 @@
       @endforeach
     @endif
   </script>
+
+@stack('scripts')
 </body>
 </html>

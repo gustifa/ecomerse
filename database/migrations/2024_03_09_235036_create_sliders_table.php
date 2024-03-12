@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('starting_price')->nullable();
             $table->string('btn_url')->nullable();
             $table->integer('serial')->nullable();
-            $table->boolean('status')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }
