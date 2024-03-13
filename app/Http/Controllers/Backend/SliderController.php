@@ -58,7 +58,7 @@ class SliderController extends Controller
         $slider->save();
 
         toastr('Slider Baru Berhasil ditambahkan', 'success');
-        return redirect()->back();
+        return redirect()->route('admin.slider.index');
     }
 
     /**
@@ -74,7 +74,8 @@ class SliderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $slider = Slider::findOrFail($id);
+        return view('admin.slider.edit', compact('slider'));
     }
 
     /**
@@ -82,7 +83,31 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'banner' => ['nullable','image', 'max:2000'],
+            'type' => ['string','max:200'],
+            'title' => ['required','max:200'],
+            'btn_type' => ['url'],
+            'starting_price' => ['max:200'],
+            'serial' => ['required', 'integer'],
+            'status' => ['required'],
+        ]);
+
+        $slider = Slider::findOrFail($id);
+
+        // Handel Image Upload
+        $imagePath = $this->updateImage($request, 'banner', 'uploads');
+        $slider->banner = $imagePath; 
+        $slider->type = $request->type;
+        $slider->title = $request->title;
+        $slider->starting_price = $request->starting_price;
+        $slider->btn_url = $request->btn_url;
+        $slider->serial = $request->serial;
+        $slider->status = $request->status;
+        $slider->save();
+
+        toastr('Slider Berhasil ddiperbaiki', 'success');
+        return redirect()->route('admin.slider.index');
     }
 
     /**
@@ -90,6 +115,10 @@ class SliderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $slider = Slider::findOrFail($id);
+        // $this->deleteImage($slider->banner);
+        $slider->delete();
+        toastr('Slider Berhasil dihapus', 'success');
+        return response(['stats' => 'success', 'message'=> 'Delete Sucsessfully']);
     }
 }

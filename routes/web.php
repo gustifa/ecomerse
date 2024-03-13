@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
 
@@ -18,9 +19,11 @@ use App\Http\Controllers\Frontend\UserProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.home.home');
-});
+// Route::get('/', function () {
+//     return view('frontend.home.home');
+// });
+
+Route::get('/', [HomeController::class, 'index'])->name('index');
 
 
 Route::middleware('auth')->group(function () {

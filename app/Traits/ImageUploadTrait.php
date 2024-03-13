@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 use Illuminate\Http\Request;
+use File;
 
 trait ImageUploadTrait{
 
@@ -19,6 +20,26 @@ trait ImageUploadTrait{
             $imageName = 'media_'.uniqid().'_'.$ext;
             $image->move(public_path($path), $imageName);
             return $path.'/'.$imageName;
+        }
+    }
+
+    public function updateImage(Request $request, $inputName, $path, $oldpath=null ){
+        if($request->hasFile($inputName)){
+
+            if(File::exists(public_path($oldpath))){
+                File::delete(public_path($oldpath));
+            }
+            $image = $request->{$inputName};
+            $ext = $image->getClientOriginalName();
+            $imageName = 'media_'.uniqid().'_'.$ext;
+            $image->move(public_path($path), $imageName);
+            return $path.'/'.$imageName;
+        }
+    }
+
+    public function deleteImage(string $path){
+        if(File::exists(public_path($path))){
+            File::delete(public_path($path));
         }
     }
 }
