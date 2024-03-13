@@ -71,7 +71,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'icon' => ['required', 'not_in:empty'],
+            'name' => ['required','max:200'],
+            'status' => ['required'],
+        ]);
+        $category = Category::findOrFail($id);
+        $category->icon = $request->icon;
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->status = $request->status;
+        $category->save();
+
+        toastr('Category Berhasil diperbaharui', 'success');
+        return redirect()->route('admin.category.index');
     }
 
     /**

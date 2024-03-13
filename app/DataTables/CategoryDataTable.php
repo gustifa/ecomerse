@@ -23,22 +23,41 @@ class CategoryDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $editBtn = "<a href='".route('admin.category.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deletetBtn = "<a href='".route('admin.category.destroy', $query->id)."' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash'></i></a>";
+                $editBtn = "
+                            <a href='".route('admin.category.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>
+                            ";
+                $deletetBtn = "
+                            <a href='".route('admin.category.destroy', $query->id)."' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash'></i></a>
+                            ";
                 return $editBtn.$deletetBtn;
             })
             ->addColumn('icon', function($query){
-                $icon = "<i style='font-size:40px' class='".$query->icon."'></i>";
+                $icon = "
+                        <i style='font-size:40px' class='".$query->icon."'></i>
+                        ";
                 return $icon;
             })
             ->addColumn('status', function($query){
-                $active = "<i class='badge badge-info'>Active</i>";
-                $inActive = "<i class='badge badge-danger'>Inactive</i>";
                 if($query->status == 1){
-                    return $active;
+                    $status = "
+                            <label class='custom-switch mt-2'>
+                            <input type='checkbox' checked name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'>
+                            <span class='custom-switch-indicator'></span>
+                            </label>
+                        ";
                 }else{
-                    return $inActive;
+                    $status = "
+                            <label class='custom-switch mt-2'>
+                            <input type='checkbox' name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'>
+                            <span class='custom-switch-indicator'></span>
+                            </label>
+                        ";
                 }
+        
+                
+                return $status;
+            
+                
                 
             })
             ->rawColumns(['action', 'icon', 'status'])
@@ -82,9 +101,9 @@ class CategoryDataTable extends DataTable
     {
         return [
             
-            Column::make('id'),
-            Column::make('icon'),
-            Column::make('name'),
+            Column::make('id')->width(20),
+            Column::make('icon')->width(30),
+            Column::make('name')->width(400),
             Column::make('status'),
             Column::computed('action')
                   ->exportable(false)
