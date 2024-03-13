@@ -2,9 +2,9 @@
 @section('content')
 <section class="section">
           <div class="section-header">
-            <h1>Profile</h1>
+            <h1>Category</h1>
             <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="#">Slider</a></div>
+              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
               <div class="breadcrumb-item">Tambah Slider</div>
             </div>
           </div>
