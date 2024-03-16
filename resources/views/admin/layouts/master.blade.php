@@ -81,7 +81,7 @@
     @if ($errors->any())
       @foreach ($errors->all() as $error)
         @php
-          toastr()->error($error)
+          toastr.error("{{$error}}")
         @endphp
       @endforeach
     @endif
