@@ -6,7 +6,7 @@
             <h1>Slider</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">Dashboard</a></div>
-              <div class="breadcrumb-item"><a href="#">Slider</a></div>
+              <div class="breadcrumb-item"><a href="#">Sub Category</a></div>
               <!-- <div class="breadcrumb-item">Table</div> -->
             </div>
           </div>
@@ -18,10 +18,10 @@
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Data Category</h4>
+                    <h4>Data Sub Category</h4>
                   </div>
                   <div class="card-footer text-right">
-                      <a href="{{route('admin.category.create')}}"><button class="btn btn-primary">Create</button></a>
+                      <a href="{{route('admin.sub-category.create')}}"><button class="btn btn-primary">Create</button></a>
                   </div>
                   <div class="card-body p-0">
                     {{ $dataTable->table() }}
@@ -46,7 +46,7 @@
           let id = $(this).data('id');
           
           $.ajax({
-            url: "{{route('admin.category.change-status')}}",
+            url: "{{route('admin.sub-category.change-status')}}",
             method: 'PUT',
             data: {
               status: checked,
