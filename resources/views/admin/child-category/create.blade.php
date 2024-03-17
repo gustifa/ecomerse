@@ -14,20 +14,29 @@
             <div class="row mt-sm-4">
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
-                  <form method="post" action="{{route('admin.sub-category.store')}}" enctype="multipart/form-data">
+                  <form method="post" action="{{route('admin.child-category.store')}}" enctype="multipart/form-data">
                   	@csrf
                     <div class="card-header">
                       <h4>Tambah Sub Category</h4>
                     </div>
                     
                     <div class="card-body">
-                    	<div class="row">
-                      <div class="form-group col-md-12 col-12">
-                            <label>Category</label>
+                    	  <div class="row">
+                          <div class="form-group col-md-12 col-12">
+                              <label>Category</label>
                             <select class="form-control" name="category">
                               @foreach($category as $item)
                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                 @endforeach
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-12 col-12">
+                              <label>Sub Category</label>
+                            <select id="inpuState" class="form-control sub-category" name="child-category">
+                                <option value="">Select</option>
                             </select>
                           </div>
                         </div>

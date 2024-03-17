@@ -57,7 +57,7 @@ class SubCategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -65,7 +65,10 @@ class SubCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $subCategory = SubCategory::findOrFail($id);
+        $category = Category::all();
+
+        return view('admin.sub-category.edit', compact('subCategory', 'category'));
     }
 
     /**
@@ -73,7 +76,19 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'category' => ['required', 'not_in:empty'],
+            'name' => ['required','max:200'],
+            'status' => ['required'],
+        ]);
+        $subcategory = SubCategory::findOrFail($id);
+        $subcategory->category_id = $request->category;
+        $subcategory->name = $request->name;
+        $subcategory->status = $request->status;
+        $subcategory->save();
+
+        toastr('Sub Category Berhasil diperbaharui', 'success');
+        return redirect()->route('admin.sub-category.index');
     }
 
     /**
@@ -81,7 +96,9 @@ class SubCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $subcategory = SubCategory::findOrFail($id);
+        $subcategory->delete();
+        return response(['status' =>'success', 'Hapus Sub Category Berhasil']);
     }
 
     public function changeStatus(Request $request){
@@ -90,6 +107,13 @@ class SubCategoryController extends Controller
         $subcategory->status = $request->status == 'true' ? 1 : 0;
         $subcategory->save();
 
-        return response(['message'=> 'Status Sub Category Diperbaharui'] );
+        if($subcategory->status == 1){
+            return response(['message'=> 'Sub Category <b>'.$subcategory->name.'</b> diaktifkan'] );
+        }else{
+            return response(['message'=> 'Sub Category <b>'.$subcategory->name.'</b> dinonaktifkan'] );
+        }
+
+
+        
     }
 }

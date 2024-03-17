@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\ChildCategoryController;
 
 /*Router Admin*/
 Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -23,3 +24,7 @@ Route::resource('category', CategoryController::class);
 /* Route SubCategory */
 Route::put('subcategory/change-status', [SubCategoryController::class, 'changeStatus'])->name('sub-category.change-status');
 Route::resource('sub-category', SubCategoryController::class);
+
+/* Route ChildCategory */
+Route::put('childcategory/change-status', [ChildCategoryController::class, 'changeStatus'])->name('child-category.change-status');
+Route::resource('child-category', ChildCategoryController::class);
