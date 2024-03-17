@@ -118,7 +118,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
         // $this->deleteImage($slider->banner);
         $slider->delete();
-        toastr('Slider Berhasil dihapus', 'success');
-        return response(['stats' => 'success', 'message'=> 'Delete Sucsessfully']);
+        // toastr('Slider Berhasil dihapus', 'success');
+        return response(['status' => 'success', 'message'=> 'Delete Sucsessfully']);
     }
 }

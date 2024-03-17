@@ -94,9 +94,9 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
-        toastr('Category Berhasil dihapus', 'success');
-
-        return redirect()->back();
+        // toastr('Category Berhasil dihapus', 'success');
+        // return redirect()->back();
+        return response(['status' =>'success', 'Hapus Category Berhasil']);
     }
 
     public function changeStatus(Request $request){
