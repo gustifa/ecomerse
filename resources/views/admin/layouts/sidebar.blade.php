@@ -26,22 +26,16 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Manage Category</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="{{route('admin.category.index')}}">Lihat Category</a></li>
-                <li><a class="nav-link" href="forms-editor.html">Editor</a></li>
-                <li><a class="nav-link" href="forms-validation.html">Validation</a></li>
+                <li><a class="nav-link" href="{{route('admin.category.index')}}">Category</a></li>
+                <li><a class="nav-link" href="{{route('admin.sub-category.index')}}">Sub Category</a></li>
+                <li><a class="nav-link" href="{{route('admin.child-category.index')}}">Child Category</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marker-alt"></i> <span>Google Maps</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marker-alt"></i> <span>Manage Brand</span></a>
               <ul class="dropdown-menu">
-                <li><a href="gmaps-advanced-route.html">Advanced Route</a></li>
-                <li><a href="gmaps-draggable-marker.html">Draggable Marker</a></li>
-                <li><a href="gmaps-geocoding.html">Geocoding</a></li>
-                <li><a href="gmaps-geolocation.html">Geolocation</a></li>
-                <li><a href="gmaps-marker.html">Marker</a></li>
-                <li><a href="gmaps-multiple-marker.html">Multiple Marker</a></li>
-                <li><a href="gmaps-route.html">Route</a></li>
-                <li><a href="gmaps-simple.html">Simple</a></li>
+                <li><a href="{{route('admin.brand.index')}}">Brand</a></li>
+                
               </ul>
             </li>            <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-plug"></i> <span>Modules</span></a>
