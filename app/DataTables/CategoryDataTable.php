@@ -53,12 +53,8 @@ class CategoryDataTable extends DataTable
                             </label>
                         ";
                 }
-        
-                
-                return $status;
-            
-                
-                
+
+                return $status;   
             })
             ->rawColumns(['action', 'icon', 'status'])
             ->setRowId('id');

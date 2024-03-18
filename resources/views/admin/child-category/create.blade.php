@@ -24,7 +24,7 @@
                     	  <div class="row">
                           <div class="form-group col-md-12 col-12">
                               <label>Category</label>
-                            <select class="form-control" name="category">
+                            <select id="inpuState" class="form-control main-category" name="category">
                               @foreach($category as $item)
                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                 @endforeach
@@ -35,7 +35,7 @@
                         <div class="row">
                           <div class="form-group col-md-12 col-12">
                               <label>Sub Category</label>
-                            <select id="inpuState" class="form-control sub-category" name="child-category">
+                            <select id="inpuState" class="form-control sub-category" name="sub_category">
                                 <option value="">Select</option>
                             </select>
                           </div>
@@ -76,3 +76,31 @@
           </div>
         </section>
 @endsection
+@push('scripts')
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('body').on('change', '.main-category', function(){
+          let id = $(this).val();
+          $.ajax({
+            method: 'GET',
+            url: "{{route('admin.get-subcategory')}}",
+            data: {
+              id: id
+            },
+
+            success: function(data){
+              $('.sub-category').html('<option value="">Select</option>')
+              $.each(data, function(i, item){
+                $('.sub-category').append(`<option value="${item.id}">${item.name}</option>`)
+                // $('.sub-category').append('<option value="'+item.id+'">item.name</option>');
+              })
+            },
+            error: function(xhr, status, error){
+              console.log(error);
+            }
+          })
+        })    
+      })  
+    </script>
+@endpush
