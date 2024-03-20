@@ -96,8 +96,9 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
 
         // Handel Image Upload
-        $imagePath = $this->updateImage($request, 'banner', 'uploads');
-        $slider->banner = $imagePath; 
+        $imagePath = $this->updateImage($request, 'banner', 'uploads', $slider->banner );
+        $slider->banner = empty(!$imagePath) ? $imagePath : $slider->banner ; 
+        //$slider->banner = $imagePath; 
         $slider->type = $request->type;
         $slider->title = $request->title;
         $slider->starting_price = $request->starting_price;
@@ -117,6 +118,7 @@ class SliderController extends Controller
     {
         $slider = Slider::findOrFail($id);
         // $this->deleteImage($slider->banner);
+        $this->deleteImage($slider->banner);
         $slider->delete();
         // toastr('Slider Berhasil dihapus', 'success');
         return response(['status' => 'success', 'message'=> 'Delete Sucsessfully']);

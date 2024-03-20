@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="//cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{asset('backend/assets/css/bootstrap-iconpicker.min.css')}}">
+  <link rel="stylesheet" href="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
   
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('backend/assets/css/style.css')}}">
@@ -73,6 +74,7 @@
   <!-- Iconpicker -->
   <!-- <script src="{{asset('backend/assets/js/bootstrap-iconpicker.min.js')}}"></script> -->
   <script src="{{asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
+  <script src="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
   <!-- Page Specific JS File -->
   <script src="{{asset('backend/assets/js/page/index.js')}}"></script>
@@ -85,7 +87,7 @@
     @if ($errors->any())
       @foreach ($errors->all() as $error)
         @php
-          toastr.error("{{$error}}")
+          toastr()->error($error)
         @endphp
       @endforeach
     @endif
