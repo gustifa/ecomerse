@@ -96,7 +96,13 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $category = Category::all();
+        $subCategory = SubCategory::all();
+        $childCategory = ChildCategory::all();
+        $brand = Brand::all();
+        $vendor = Vendor::all();
+        return view('admin.product.edit', compact('category', 'brand', 'vendor', 'product', 'subCategory', 'childCategory'));
     }
 
     /**
@@ -104,7 +110,44 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'category' => ['required', 'not_in:empty'],
+            'sub_category' => ['required', 'not_in:empty'],
+            'child_category' => ['required', 'not_in:empty'],
+            'name' => ['required','max:200'],
+            'status' => ['required'],
+        ]);
+
+        $product = Product::findOrFail($id);
+
+        $imagePath = $this->updateImage($request, 'thumb_image', 'uploads', $product->thumb_image);
+        $product->thumb_image = empty(!$imagePath) ? $imagePath : $product->thumb_image ;  
+        $product->name = $request->name;
+        $product->slug = Str::slug($request->name);
+        $product->vendor_id = Auth::user()->vendor->id;
+        $product->category_id = $request->category;
+        $product->sub_category_id = $request->sub_category;
+        $product->child_category_id = $request->child_category;
+        $product->brand_id = $request->brand;
+        $product->short_description = $request->short_description;
+        $product->long_description = $request->long_description;
+        $product->video_link = $request->video_link;
+        $product->sku = $request->sku;
+        $product->price = $request->price;
+        $product->offer_price = $request->offer_price;
+        $product->offer_start_date = $request->offer_start_date;
+        $product->offer_end_date = $request->offer_end_date;
+        $product->is_top = $request->is_top;
+        $product->is_featured = $request->is_featured;
+        $product->status = $request->status;
+        $product->is_approved = $request->is_approved;
+        $product->seo_title = $request->seo_title;
+        $product->seo_description = $request->seo_description;
+        $product->save();
+
+        toastr('Product B Berhasil diperbaharui', 'success');
+        return redirect()->route('admin.product.index');
     }
 
     /**
