@@ -44,4 +44,38 @@ class ProductVariantItemController extends Controller
         return redirect()->route('admin.product-variant-item.index', 
         ['productId' => $request->product_id, 'variantId' => $request->product_variant_id]);
     }
+
+    public function edit(string $variantItemId){
+        $productVariantItem = ProductVariantItem::findOrFail($variantItemId);
+        return view('admin.product.product-variant-item.edit', compact('productVariantItem'));
+    }
+
+    public function update(request $request, string $variantItemId){
+        // dd($request->all());
+        $request->validate([
+            'name' => ['required','max:200'],
+            'price' => ['required', 'integer'],
+            'is_default' => ['required'],
+            'status' => ['required'],
+        ]);
+
+        $product_variant_item = ProductVariantItem::findOrFail($variantItemId);
+        $product_variant_item->name = $request->name;
+        $product_variant_item->product_variant_id = $request->product_variant_id;
+        $product_variant_item->price = $request->price;
+        $product_variant_item->is_default = $request->is_default;
+        $product_variant_item->status = $request->status;
+        $product_variant_item->save();
+
+        toastr('Variant Product Item Berhasil diperbaharui', 'success');
+        return redirect()->route('admin.product-variant-item.index', 
+        ['productId' => $product_variant_item->productVariant->product_id, 'variantId' => $product_variant_item->product_variant_id]);
+    }
+
+    public function destroy(string $variantItemId){
+        $productVariantItem = ProductVariantItem::findOrFail($variantItemId);
+        $productVariantItem->delete();
+
+        return response(['status' => 'success', 'message' => 'Hapus Berhasil']);
+    }
 }

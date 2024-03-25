@@ -22,7 +22,57 @@ class ProductVariantItemDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'productvariantitem.action')
+            ->addColumn('action', function($query){
+                $editBtn = "
+                            <a href='".route('admin.product-variant-item.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>
+                            ";
+                $deletetBtn = "
+                            <a href='".route('admin.product-variant-item.destroy', $query->id)."' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash'></i></a>
+                            ";
+                return $editBtn.$deletetBtn;
+            })
+            ->addColumn('is_default', function($query){
+                if($query->is_default == 1){
+                    $is_default = "
+                            <label class='custom-switch mt-2'>
+                            <input type='checkbox' checked name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'>
+                            <span class='custom-switch-indicator'></span>
+                            </label>
+                        ";
+                }else{
+                    $is_default = "
+                            <label class='custom-switch mt-2'>
+                            <input type='checkbox' name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'>
+                            <span class='custom-switch-indicator'></span>
+                            </label>
+                        ";
+                }
+
+                return $is_default;   
+            })
+            ->addColumn('product_variant_name', function($query){
+                return $query->productVariant->name;
+            })
+            ->addColumn('status', function($query){
+                if($query->status == 1){
+                    $status = "
+                            <label class='custom-switch mt-2'>
+                            <input type='checkbox' checked name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'>
+                            <span class='custom-switch-indicator'></span>
+                            </label>
+                        ";
+                }else{
+                    $status = "
+                            <label class='custom-switch mt-2'>
+                            <input type='checkbox' name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'>
+                            <span class='custom-switch-indicator'></span>
+                            </label>
+                        ";
+                }
+
+                return $status;   
+            })
+            ->rawColumns(['action', 'status','is_default'])
             ->setRowId('id');
     }
 
@@ -31,7 +81,7 @@ class ProductVariantItemDataTable extends DataTable
      */
     public function query(ProductVariantItem $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('product_variant_id', request()->variantId)->newQuery();
     }
 
     /**
@@ -62,15 +112,19 @@ class ProductVariantItemDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('product_variant_name'),
+            Column::make('name'),
+            Column::make('price'),
+            Column::make('is_default'),
+            Column::make('status'),
+            // Column::make('created_at'),
+            // Column::make('updated_at'),
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(200)
+            ->addClass('text-center'),
         ];
     }
 

@@ -25,7 +25,7 @@
                     <div class="row">
                           <div class="form-group col-md-12 col-12">
                           	
-                            <label>thumb_image</label>
+                            <label>thumb_image <code>*</code></label>
                             <input type="file" name="thumb_image" class="form-control">
                             
                           </div>
@@ -34,7 +34,7 @@
                         
                         <div class="row">
                           <div class="form-group col-md-12 col-12">
-                            <label>Name</label>
+                            <label>Name <code>*</code></label>
                             <input type="text" name="name" class="form-control" value="{{old('name')}}">
                             
                           </div>
@@ -45,7 +45,7 @@
                         <div class="row">
                           
                           <div class="form-group col-md-4 col-12">
-                            <label id="inputState">Category</label>
+                            <label id="inputState">Category <code>*</code></label>
                             <select id="inputState" class="form-control main-category" name="category">
                             <option value="">Select</option>
                               @foreach($category as $item)
@@ -54,13 +54,13 @@
                             </select>
                           </div>
                           <div class="form-group col-md-4 col-12">
-                            <label id="inputState">Sub Category</label>
+                            <label id="inputState">Sub Category <code>*</code></label>
                             <select id="inputState" class="form-control sub-category" name="sub_category">
                               <option value="">Select</option>
                             </select>
                           </div>
                           <div class="form-group col-md-4 col-12">
-                            <label id="inputState">Child Category</label>
+                            <label id="inputState">Child Category <code>*</code></label>
                             <select id="inputState" class="form-control child-category" name="child_category">
                               <option value="">Select</option>
                             </select>
@@ -71,7 +71,7 @@
                         <div class="row">
                           
                           <div class="form-group col-md-12 col-12">
-                            <label id="inputState">Brand</label>
+                            <label id="inputState">Brand <code>*</code></label>
                             <select id="inputState" class="form-control" name="brand">
                             <option value="">Select</option>
                               @foreach($brand as $item)
@@ -85,7 +85,7 @@
 
                         <div class="row">
                           <div class="form-group col-md-12 col-12">
-                            <label>Short Description</label>
+                            <label>Short Description <code>*</code></label>
                             <br>
                             <textarea class="summernote-simple" name="short_description"></textarea>
                             
@@ -95,7 +95,7 @@
 
                         <div class="row">
                           <div class="form-group col-md-12 col-12">
-                            <label>Long Description</label>
+                            <label>Long Description <code>*</code></label>
                             <br>
                             <textarea class="summernote" name="long_description"></textarea>
                             
@@ -118,7 +118,7 @@
                             
                           </div>
                           <div class="form-group col-md-4 col-12">
-                            <label>Price</label>
+                            <label>Price <code>*</code></label>
                             <input type="text" name="price" class="form-control" value="{{old('price')}}">
                             
                           </div>
@@ -184,7 +184,7 @@
                             </select>
                           </div>
                           <div class="form-group col-md-3 col-12">
-                            <label id="inputState">status</label>
+                            <label id="inputState">status <code>*</code></label>
                             <select id="inputState" class="form-control" name="status">
                               <option value="">Select</option>
                               <option value="1">Active</option>
@@ -192,7 +192,7 @@
                             </select>
                           </div>
                           <div class="form-group col-md-3 col-12">
-                            <label id="inputState">is_approved</label>
+                            <label id="inputState">is_approved <code>*</code></label>
                             <select id="inputState" class="form-control" name="is_approved">
                               <option value="">Select</option>
                               <option value="1">Enable</option>

@@ -25,6 +25,7 @@
                           <div class="form-group col-md-12 col-12">
                               <label>Category</label>
                             <select id="inpuState" class="form-control main-category" name="category">
+                            <option value="">Select</option>
                               @foreach($category as $item)
                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                 @endforeach

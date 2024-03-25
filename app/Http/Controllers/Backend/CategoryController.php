@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\DataTables\CategoryDataTable;
 use App\Models\Category;
+use App\Models\SubCategory;
 use Str;
 
 class CategoryController extends Controller
@@ -93,6 +94,10 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = Category::findOrFail($id);
+        $subCategory = SubCategory::where('category_id', $category->id)->count();
+        if($subCategory > 0){
+            return response(['status' =>'error', 'message' => 'Tidak Bisa dihapus, karena berisi sub conten']);
+        }
         $category->delete();
         // toastr('Category Berhasil dihapus', 'success');
         // return redirect()->back();

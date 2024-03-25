@@ -30,12 +30,7 @@ class ChildCategoryController extends Controller
         return view('admin.child-category.create', compact('category', 'subCategory'));
     }
 
-    /* Get Sub Category */
-    public function getSubCategory(Request $request){
-        $subCategory = SubCategory::where('category_id', $request->id)->where('status', 1)->get();
-        return $subCategory;
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -129,4 +124,11 @@ class ChildCategoryController extends Controller
 
         
     }
+
+    /* Get Sub Category */
+    public function getSubCategory(Request $request){
+        $subCategory = SubCategory::where('category_id', $request->id)->where('status', 1)->get();
+        return $subCategory;
+    }
+
 }

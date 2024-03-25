@@ -11,6 +11,8 @@ use App\Models\ChildCategory;
 use App\Models\Brand;
 use App\Models\Vendor;
 use App\Models\Product;
+use App\Models\ProductImageGalley;
+use App\Models\ProductVariant;
 use Auth;
 use App\Traits\ImageUploadTrait;
 use Str;
@@ -45,10 +47,15 @@ class ProductController extends Controller
         // dd($request->all());
         // dd(Auth::user()->vendor);
         $request->validate([
+            'thumb_image' => ['required', 'not_in:empty'],
             'category' => ['required', 'not_in:empty'],
             'sub_category' => ['required', 'not_in:empty'],
             'child_category' => ['required', 'not_in:empty'],
             'name' => ['required','max:200'],
+            'price' => ['required', 'integer'],
+            'short_description' => ['required'],
+            'long_description' => ['required'],
+            'is_approved' => ['required'],
             'status' => ['required'],
         ]);
 
@@ -112,10 +119,12 @@ class ProductController extends Controller
     {
         // dd($request->all());
         $request->validate([
+            'thumb_image' => ['required', 'not_in:empty'],
             'category' => ['required', 'not_in:empty'],
             'sub_category' => ['required', 'not_in:empty'],
             'child_category' => ['required', 'not_in:empty'],
             'name' => ['required','max:200'],
+            'price' => ['required'],
             'status' => ['required'],
         ]);
 
@@ -155,7 +164,28 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
+        $product = Product::findOrFail($id);
+        
+        /* Hapus Main Image Product */
+        $this->deleteImage('$product->thumb_image');
+
+        // /* Delete Product Image Galery */
+        // $galleryImage = ProductImageGallery::where('product_id', $product->id)->get();
+        // foreach($galleryImage as $image){
+        //     $this->deleteImage($image->image);
+        // } 
+
+        /* Delete Product Variant if jika Ada */
+        $productVariant = ProductVariant::where('product_id', $product->id)->get();
+        foreach($productVariant as $item){
+            $item->productVariantItem()->delete();
+            $item->delete();
+        }
+
+        $product->delete();
+
+        return response(['status' => 'success', 'message' => 'Product Berhasil dihapus']);
     }
 
     public function getSubCategory(Request $request){

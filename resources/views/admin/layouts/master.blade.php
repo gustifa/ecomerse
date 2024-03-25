@@ -116,27 +116,36 @@
           }).then((result) => {
           if (result.isConfirmed) {
 
-            $.ajax({
-              type: 'DELETE',
-              url: deleteUrl,
+              $.ajax({
+                type: 'DELETE',
+                url: deleteUrl,
 
-              success: function(data){
-                console.log(date);
-              },
+                success: function(data){
 
-              error: function(xhr, status, error){
-                console.log(error);
-              }
-            })
+                    if(data.status == 'success'){
+                      Swal.fire(
+                        'Delete!',
+                        data.message,
+                        'success'
+                      )
+                      window.location.reload();
+                  }else if(data.status == 'error'){
+                    Swal.fire(
+                      'Cant Delete!',
+                      data.message,
+                      'error'
+                    )
+                  }
+                },
+                error: function(xhr, status, error){
+                  console.log(error);
+                }
+              })
 
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success"
-              });
-              window.location.reload();
-            }
-          });
+              
+          }
+          
+        })
         
 
 
