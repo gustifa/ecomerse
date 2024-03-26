@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\DataTables\ProductDataTable;
+use App\DataTables\VendorProductDataTable;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\ChildCategory;
@@ -17,15 +17,15 @@ use Auth;
 use App\Traits\ImageUploadTrait;
 use Str;
 
-class ProductController extends Controller
+class VendorProductController extends Controller
 {
     use ImageUploadTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index(ProductDataTable $dataTable)
+    public function index(VendorProductDataTable $dataTable)
     {
-        return $dataTable->render('admin.product.index');
+        return $dataTable->render('vendor.product.index');
     }
 
     /**
@@ -36,7 +36,7 @@ class ProductController extends Controller
         $category = Category::all();
         $brand = Brand::all();
         $vendor = Vendor::all();
-        return view('admin.product.create', compact('category', 'brand', 'vendor'));
+        return view('vendor.product.create', compact('category', 'brand', 'vendor'));
     }
 
     /**
@@ -44,8 +44,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // dd(Auth::user()->vendor);
         $request->validate([
             'thumb_image' => ['required', 'not_in:empty'],
             'category' => ['required', 'not_in:empty'],
@@ -87,7 +85,7 @@ class ProductController extends Controller
         $product->save();
 
         toastr('Product Baru Berhasil ditambahkan', 'success');
-        return redirect()->route('admin.product.index');
+        return redirect()->route('vendor.product.index');
     }
 
     /**
@@ -104,12 +102,17 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
+        if($product->vendor_id != Auth::user()->vendor->id){
+            // abort(404);
+            toastr('Tidak diizinkan', 'error');
+            return redirect()->route('vendor.product.index');
+        }
         $category = Category::all();
         $subCategory = SubCategory::all();
         $childCategory = ChildCategory::all();
         $brand = Brand::all();
         $vendor = Vendor::all();
-        return view('admin.product.edit', compact('category', 'brand', 'vendor', 'product', 'subCategory', 'childCategory'));
+        return view('vendor.product.edit', compact('category', 'brand', 'vendor', 'product', 'subCategory', 'childCategory'));
     }
 
     /**
@@ -117,9 +120,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request->all());
         $request->validate([
-            'thumb_image' => ['required', 'not_in:empty'],
+            // 'thumb_image' => ['required', 'not_in:empty'],
             'category' => ['required', 'not_in:empty'],
             'sub_category' => ['required', 'not_in:empty'],
             'child_category' => ['required', 'not_in:empty'],
@@ -129,7 +131,9 @@ class ProductController extends Controller
         ]);
 
         $product = Product::findOrFail($id);
-
+        if($product->vendor_id != Auth::user()->vendor->id){
+            abort(404);
+        }
         $imagePath = $this->updateImage($request, 'thumb_image', 'uploads', $product->thumb_image);
         $product->thumb_image = empty(!$imagePath) ? $imagePath : $product->thumb_image ;  
         $product->name = $request->name;
@@ -155,8 +159,8 @@ class ProductController extends Controller
         $product->seo_description = $request->seo_description;
         $product->save();
 
-        toastr('Product B Berhasil diperbaharui', 'success');
-        return redirect()->route('admin.product.index');
+        toastr('Product Berhasil diperbaharui', 'success');
+        return redirect()->route('vendor.product.index');
     }
 
     /**
@@ -164,11 +168,13 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        
         $product = Product::findOrFail($id);
+        if($product->vendor_id != Auth::user()->vendor->id){
+            abort(404);
+        }
         
         /* Hapus Main Image Product */
-        $this->deleteImage('$product->thumb_image');
+        // $this->deleteImage('$product->thumb_image');
 
         // /* Delete Product Image Galery */
         // $galleryImage = ProductImageGallery::where('product_id', $product->id)->get();
@@ -177,14 +183,13 @@ class ProductController extends Controller
         // } 
 
         /* Delete Product Variant if jika Ada */
-        $productVariant = ProductVariant::where('product_id', $product->id)->get();
-        foreach($productVariant as $item){
-            $item->productVariantItem()->delete();
-            $item->delete();
-        }
+        // $productVariant = ProductVariant::where('product_id', $product->id)->get();
+        // foreach($productVariant as $item){
+        //     $item->productVariantItem()->delete();
+        //     $item->delete();
+        // }
 
         $product->delete();
-
         return response(['status' => 'success', 'message' => 'Product Berhasil dihapus']);
     }
 

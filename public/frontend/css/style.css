@@ -9459,8 +9459,14 @@ a:not([href]):not([class]):hover {
   color: #353535;
   resize: none;
   border: 1px solid #eee;
+  margin-bottom: 10px;
 }
 
 .wsus__input label{
   margin-bottom: 5px;
+}
+
+.create_button{
+  text-align: right;
+  margin-bottom: 15px;
 }

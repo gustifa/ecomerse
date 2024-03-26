@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\ProductImageGalleryDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\DataTables\VendorProductImageGalleryDataTable;
 use App\Models\Product;
 use App\Models\ProductImageGallery;
 use App\Traits\ImageUploadTrait;
 
-
-class ProductImageGalleryController extends Controller
+class VendorProductImageGalleryController extends Controller
 {
     use ImageUploadTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, ProductImageGalleryDataTable $dataTable)
+    
+    public function index(Request $request, VendorProductImageGalleryDataTable $dataTable)
     {
         $product = Product::findOrFail($request->product);
-        return $dataTable->render('admin.product.image-gallery.index', compact('product'));
-        // return view('admin.product.image-gallery.index');
+        return $dataTable->render('vendor.product.image-gallery.index', compact('product'));
     }
 
     /**
@@ -36,9 +35,8 @@ class ProductImageGalleryController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
-            'image.*' => ['required', 'image', 'max:2000']
+            'image.*' => ['required', 'image', 'max:2000', 'not_in:empty']
         ]);
 
         $imagePaths = $this->uploadMultiImage($request, 'image', 'uploads');
@@ -82,8 +80,9 @@ class ProductImageGalleryController extends Controller
      */
     public function destroy(string $id)
     {
-        $Product = ProductImageGallery::findOrFail($id);
-        $Product->delete();
+        
+        $vendorProduct = ProductImageGallery::findOrFail($id);
+        $vendorProduct->delete();
         return response(['status' =>'success', 'Hapus Galery Imagae Berhasil']);
     }
 }

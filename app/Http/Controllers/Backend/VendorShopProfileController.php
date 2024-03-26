@@ -61,10 +61,11 @@ class VendorShopProfileController extends Controller
         // dd($request->all());
         $request->validate([
             'banner' => ['nullable','image', 'max:2000'],
-            'phone' => ['required'],
-            'email' => ['required'],
-            'description' => ['required'],
+            'shop_name' => ['required', 'max:200'],
+            'phone' => ['required', 'max:20'],
+            'email' => ['required', 'email', 'max:200'],
             'address' => ['required'],
+            'description' => ['required'],
             'fb_link' => ['nullable','url'],
             'tw_link' => ['nullable','url'],
             'insta_link' => ['nullable','url'],
@@ -75,6 +76,7 @@ class VendorShopProfileController extends Controller
         // Handel Image Upload
         $imagePath = $this->updateImage($request, 'banner', 'uploads', $vendor->banner);
         $vendor->banner = empty(!$imagePath) ? $imagePath : $vendor->banner ; 
+        $vendor->shop_name = $request->shop_name;
         $vendor->phone = $request->phone;
         $vendor->email = $request->email;
         $vendor->description = $request->description;
@@ -84,7 +86,7 @@ class VendorShopProfileController extends Controller
         $vendor->insta_link = $request->insta_link;
         $vendor->save();
 
-        toastr('Vendor Berhasil ddiperbaharui', 'success');
+        toastr('Vendor Berhasil diperbaharui', 'success');
         return redirect()->route('vendor.shop-profile.index');
     }
 

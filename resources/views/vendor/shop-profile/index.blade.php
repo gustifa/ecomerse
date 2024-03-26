@@ -35,6 +35,10 @@
                             </div> -->
 
                             <div class="form-group col-md-12 col-12 wsus__input">
+                                <label>Shop Name <code>*</code></label>
+                                <input type="text" name="shop_name" class="form-control" value="{{$vendorProfile->shop_name}}">
+                            </div>
+                            <div class="form-group col-md-12 col-12 wsus__input">
                                 <label>Phone <code>*</code></label>
                                 <input type="text" name="phone" class="form-control" value="{{$vendorProfile->phone}}">
                             </div>
@@ -52,7 +56,7 @@
                             <div class="form-group col-md-12 col-12 wsus__input">
                                 <label>Description <code>*</code></label>
                                 <br>
-                                <textarea class="summernote-simple" name="description">{{$vendorProfile->description}}</textarea>
+                                <textarea class="summernote" name="description">{!!$vendorProfile->description!!}</textarea>
                             
                             </div>
 

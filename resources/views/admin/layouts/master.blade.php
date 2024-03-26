@@ -65,10 +65,11 @@
   <script src="{{asset('backend/assets/modules/chart.min.js')}}"></script>
   <script src="{{asset('backend/assets/modules/owlcarousel2/dist/owl.carousel.min.js')}}"></script>
   <script src="{{asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 
   <script src="{{asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
   <script src="//cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Iconpicker -->
