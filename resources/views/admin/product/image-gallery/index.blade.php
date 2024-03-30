@@ -13,7 +13,7 @@
 
           <div class="section-body">
             <div class="mb-3">
-              <a href="{{route('admin.product.index')}}" class="btn btn-primary">Back</a>
+              <a href="{{route('admin.product.index')}}" class="btn btn-warning">Back</a>
             </div>
           <div class="row">
           <div class="col-12 col-md-12 col-lg-12">

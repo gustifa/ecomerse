@@ -37,10 +37,7 @@ class VendorProductDataTable extends DataTable
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="'.route('vendor.product-image-gallery.index', ['product'=> $query->id]).'">Image Gallery</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Separated link</a></li>
+                        <li><a class="dropdown-item" href="'.route('vendor.product-variant.index', ['product'=> $query->id]).'">Variant</a></li>
                     </ul>
                     </div>
 
@@ -73,16 +70,28 @@ class VendorProductDataTable extends DataTable
             ->addColumn('category', function($query){
                 return $query->category->name;
             })
-            // ->addColumn('subCategory', function($query){
-            //     return $query->subCategory->name;
-            // })
-            // ->addColumn('childCategory', function($query){
-            //     return $query->childCategory->name;
-            // })
-            ->addColumn('brand', function($query){
-                return $query->brand->name;
+            ->addColumn('type', function($query){
+                switch ($query->product_type) {
+                    case 'new_arrival':
+                        return '<i class="badge bg-success">New Arrival</i>';
+                        break;
+                    case 'featured_product':
+                        return '<i class="badge bg-warning">Featured Product</i>';
+                        break;
+                    case 'top_product':
+                        return '<i class="badge bg-info">Top Product</i>';
+                        break;
+    
+                    case 'best_product':
+                        return '<i class="badge bg-danger">Top Product</i>';
+                        break;
+    
+                    default:
+                        return '<i class="badge bg-dark">None</i>';
+                        break;
+                }
             })
-            ->rawColumns(['action', 'thumb_image', 'status'])
+            ->rawColumns(['action', 'thumb_image', 'type', 'status'])
             ->setRowId('id');
     }
 
@@ -122,14 +131,12 @@ class VendorProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            
             Column::make('id'),
             Column::make('thumb_image'),
             Column::make('name'),
-            Column::make('category'),
-            // Column::make('subCategory'),
-            // Column::make('childCategory'),
-            Column::make('brand'),
             Column::make('price'),
+            Column::make('type'),
             Column::make('status')
             ->width(10),
             // Column::make('created_at'),

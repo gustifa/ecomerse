@@ -11,6 +11,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
 
 class ProductDataTable extends DataTable
 {
@@ -36,8 +37,7 @@ class ProductDataTable extends DataTable
                       </button>
                       <div class='dropdown-menu'>
                         <a class='dropdown-item has-icon' href='".route('admin.product-image-gallery.index', ['product'=> $query->id])."'><i class='far fa-heart'></i> Image Gallery</a>
-                        <a class='dropdown-item has-icon' href='".route('admin.product-variant.index', ['product'=> $query->id])."'><i class='far fa-file'></i> Another action</a>
-                        <a class='dropdown-item has-icon' href='#'><i class='far fa-clock'></i> Something else here</a>
+                        <a class='dropdown-item has-icon' href='".route('admin.product-variant.index', ['product'=> $query->id])."'><i class='far fa-file'></i> Variant</a>
                       </div>
                     </div>
 
@@ -67,19 +67,29 @@ class ProductDataTable extends DataTable
 
                 return $status;   
             })
-            ->addColumn('category', function($query){
-                return $query->category->name;
+            ->addColumn('type', function($query){
+                switch ($query->product_type) {
+                    case 'new_arrival':
+                        return '<i class="badge badge-success">New Arrival</i>';
+                        break;
+                    case 'featured_product':
+                        return '<i class="badge badge-warning">Featured Product</i>';
+                        break;
+                    case 'top_product':
+                        return '<i class="badge badge-info">Top Product</i>';
+                        break;
+
+                    case 'best_product':
+                        return '<i class="badge badge-danger">Top Product</i>';
+                        break;
+
+                    default:
+                        return '<i class="badge badge-dark">None</i>';
+                        break;
+                }
             })
-            ->addColumn('subCategory', function($query){
-                return $query->subCategory->name;
-            })
-            ->addColumn('childCategory', function($query){
-                return $query->childCategory->name;
-            })
-            ->addColumn('brand', function($query){
-                return $query->brand->name;
-            })
-            ->rawColumns(['action', 'thumb_image', 'status'])
+
+            ->rawColumns(['action', 'thumb_image', 'type', 'status'])
             ->setRowId('id');
     }
 
@@ -88,7 +98,7 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('vendor_id', Auth::user()->vendor->id)->newQuery();
     }
 
     /**
@@ -123,11 +133,8 @@ class ProductDataTable extends DataTable
             Column::make('id'),
             Column::make('thumb_image'),
             Column::make('name'),
-            Column::make('category'),
-            Column::make('subCategory'),
-            Column::make('childCategory'),
-            Column::make('brand'),
             Column::make('price'),
+            Column::make('type'),
             Column::make('status')
             ->width(10),
             // Column::make('created_at'),

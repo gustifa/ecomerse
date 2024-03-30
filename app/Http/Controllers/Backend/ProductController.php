@@ -78,8 +78,8 @@ class ProductController extends Controller
         $product->offer_price = $request->offer_price;
         $product->offer_start_date = $request->offer_start_date;
         $product->offer_end_date = $request->offer_end_date;
-        $product->is_top = $request->is_top;
-        $product->is_featured = $request->is_featured;
+        $product->qty = $request->qty;
+        $product->product_type = $request->product_type;
         $product->status = $request->status;
         $product->is_approved = $request->is_approved;
         $product->seo_title = $request->seo_title;
@@ -119,7 +119,6 @@ class ProductController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'thumb_image' => ['required', 'not_in:empty'],
             'category' => ['required', 'not_in:empty'],
             'sub_category' => ['required', 'not_in:empty'],
             'child_category' => ['required', 'not_in:empty'],
@@ -147,15 +146,15 @@ class ProductController extends Controller
         $product->offer_price = $request->offer_price;
         $product->offer_start_date = $request->offer_start_date;
         $product->offer_end_date = $request->offer_end_date;
-        $product->is_top = $request->is_top;
-        $product->is_featured = $request->is_featured;
+        $product->qty = $request->qty;
+        $product->product_type = $request->product_type;
         $product->status = $request->status;
         $product->is_approved = $request->is_approved;
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
         $product->save();
 
-        toastr('Product B Berhasil diperbaharui', 'success');
+        toastr('Product Berhasil diperbaharui', 'success');
         return redirect()->route('admin.product.index');
     }
 

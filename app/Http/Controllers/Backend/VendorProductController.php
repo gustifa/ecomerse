@@ -76,8 +76,8 @@ class VendorProductController extends Controller
         $product->offer_price = $request->offer_price;
         $product->offer_start_date = $request->offer_start_date;
         $product->offer_end_date = $request->offer_end_date;
-        $product->is_top = $request->is_top;
-        $product->is_featured = $request->is_featured;
+        $product->qty = $request->qty;
+        $product->product_type = $request->product_type;
         $product->status = $request->status;
         $product->is_approved = $request->is_approved;
         $product->seo_title = $request->seo_title;
@@ -151,8 +151,8 @@ class VendorProductController extends Controller
         $product->offer_price = $request->offer_price;
         $product->offer_start_date = $request->offer_start_date;
         $product->offer_end_date = $request->offer_end_date;
-        $product->is_top = $request->is_top;
-        $product->is_featured = $request->is_featured;
+        $product->qty = $request->qty;
+        $product->product_type = $request->product_type;
         $product->status = $request->status;
         $product->is_approved = $request->is_approved;
         $product->seo_title = $request->seo_title;
@@ -169,27 +169,25 @@ class VendorProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);
-        if($product->vendor_id != Auth::user()->vendor->id){
-            abort(404);
-        }
         
         /* Hapus Main Image Product */
-        // $this->deleteImage('$product->thumb_image');
+        $this->deleteImage('$product->thumb_image');
 
-        // /* Delete Product Image Galery */
-        // $galleryImage = ProductImageGallery::where('product_id', $product->id)->get();
-        // foreach($galleryImage as $image){
-        //     $this->deleteImage($image->image);
-        // } 
+        /* Delete Product Image Galery */
+        $galleryImage = ProductImageGallery::where('product_id', $product->id)->get();
+        foreach($galleryImage as $image){
+            $this->deleteImage($image->image);
+        } 
 
         /* Delete Product Variant if jika Ada */
-        // $productVariant = ProductVariant::where('product_id', $product->id)->get();
-        // foreach($productVariant as $item){
-        //     $item->productVariantItem()->delete();
-        //     $item->delete();
-        // }
+        $productVariant = ProductVariant::where('product_id', $product->id)->get();
+        foreach($productVariant as $item){
+            $item->productVariantItem()->delete();
+            $item->delete();
+        }
 
         $product->delete();
+
         return response(['status' => 'success', 'message' => 'Product Berhasil dihapus']);
     }
 

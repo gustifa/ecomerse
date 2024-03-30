@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductVariantDataTable extends DataTable
+class VendorProductVariantDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,39 +22,39 @@ class ProductVariantDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function($query){
-                $varianOptionItem = "
-                            <a href='".route('admin.product-variant-item.index',['productId' => request()->product, 'variantId' => $query->id])."' class='btn btn-info mr-2'><i class='far fa-edit'></i> Varian Option</a>
-                            ";
-                $editBtn = "
-                            <a href='".route('admin.product-variant.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>
-                            ";
-                $deletetBtn = "
-                            <a href='".route('admin.product-variant.destroy', $query->id)."' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash'></i></a>
-                            ";
-                return $varianOptionItem.$editBtn.$deletetBtn;
-            })
-            ->addColumn('status', function($query){
-                if($query->status == 1){
-                    $status = "
-                            <label class='custom-switch mt-2'>
-                            <input type='checkbox' checked name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'>
-                            <span class='custom-switch-indicator'></span>
-                            </label>
+        ->addColumn('action', function($query){
+            $varianOptionItem = "
+                        <a href='".route('admin.product-variant-item.index',['productId' => request()->product, 'variantId' => $query->id])."' class='btn btn-info mr-2'><i class='far fa-edit'></i> Varian Option</a>
                         ";
-                }else{
-                    $status = "
-                            <label class='custom-switch mt-2'>
-                            <input type='checkbox' name='custom-switch-checkbox' data-id='".$query->id."' class='custom-switch-input change-status'>
-                            <span class='custom-switch-indicator'></span>
-                            </label>
+            $editBtn = "
+                        <a href='".route('admin.product-variant.edit', $query->id)."' class='btn btn-primary'><i class='far fa-edit'></i></a>
                         ";
-                }
+            $deletetBtn = "
+                        <a href='".route('admin.product-variant.destroy', $query->id)."' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash'></i></a>
+                        ";
+            return $varianOptionItem.$editBtn.$deletetBtn;
+        })
+        ->addColumn('status', function($query){
+            if($query->status == 1){
+                $status = '
+                        <div class="form-check form-switch">
+                            <input class="form-check-input change-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="'.$query->id.'" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                        </div>
+                    ';
+            }else{
+                $status = '
+                        <div class="form-check form-switch">
+                            <input class="form-check-input change-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="'.$query->id.'">
+                            <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                        </div>
+                    ';
+            }
 
-                return $status;   
-            })
-            ->rawColumns(['action', 'status'])
-            ->setRowId('id');
+            return $status;    
+        })
+        ->rawColumns(['action', 'status'])
+        ->setRowId('id');
     }
 
     /**
@@ -71,11 +71,11 @@ class ProductVariantDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('productvariant-table')
+                    ->setTableId('ProductVariant-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -93,7 +93,6 @@ class ProductVariantDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            
             Column::make('id'),
             Column::make('name'),
             Column::make('status'),

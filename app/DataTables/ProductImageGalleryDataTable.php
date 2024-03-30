@@ -32,7 +32,7 @@ class ProductImageGalleryDataTable extends DataTable
             return $deletetBtn;
         })
             ->addColumn('image', function($query){
-                $thumb_image = "<img width='300px' src='".asset($query->image)."'></img>";
+                $thumb_image = "<img width='100px' src='".asset($query->image)."'></img>";
                 return $thumb_image;
             })
             ->rawColumns(['action', 'image'])
@@ -44,7 +44,7 @@ class ProductImageGalleryDataTable extends DataTable
      */
     public function query(ProductImageGallery $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('product_id', request()->product)->newQuery();
     }
 
     /**

@@ -175,28 +175,25 @@
                           </div>
                           
                         </div>
-
-                        <div class="row">
+                        <div class="row"> 
+                          <div class="form-group col-md-6 col-12">
+                          <label>Stock Quantity</label>
+                            <input type="number" min="0" class="form-control" name="qty" value="{{$product->qty}}">
+                          </div>
+                          <div class="form-group col-md-6 col-12">
+                          <label for="inputState">Product Type</label>
+                            <select id="inputState" class="form-control" name="product_type">
+                                <option value="">Select</option>
+                                <option {{$product->product_type == 'new_arrival' ? 'selected' : ''}} value="new_arrival">New Arrival</option>
+                                <option {{$product->product_type == 'featured_product' ? 'selected' : ''}} value="featured_product">Featured</option>
+                                <option {{$product->product_type == 'top_product' ? 'selected' : ''}} value="top_product">Top Product</option>
+                                <option {{$product->product_type == 'best_product' ? 'selected' : ''}} value="best_product">Best Product</option>
+                            </select>
+                          </div>
                           
-                          <div class="form-group col-md-3 col-12">
-                            <label id="inputState">is_top</label>
-                            <select id="inputState" class="form-control" name="is_top">
-                            <option value="">Select</option>
-                                <option {{$product->is_top == 1 ? 'selected': ''}} value="1">Yes</option>
-                                <option {{$product->is_top  == 0 ? 'selected': ''}} value="0">No</option>
-
-                            </select>
-                          </div>
-                          <div class="form-group col-md-3 col-12">
-                            <label id="inputState">is_featured</label>
-                            <select id="inputState" class="form-control" name="is_featured">
-                            <option value="">Select</option>
-                                <option {{$product->is_featured == 1 ? 'selected': ''}} value="1">Yes</option>
-                                <option {{$product->is_featured  == 0 ? 'selected': ''}} value="0">No</option>
-
-                            </select>
-                          </div>
-                          <div class="form-group col-md-3 col-12">
+                        </div>
+                        <div class="row"> 
+                          <div class="form-group col-md-6 col-12">
                             <label id="inputState">status</label>
                             <select id="inputState" class="form-control" name="status">
                               <option value="">Select</option>
@@ -204,7 +201,7 @@
                               <option {{$product->status  == 0 ? 'selected': ''}} value="0">Inactive</option>
                             </select>
                           </div>
-                          <div class="form-group col-md-3 col-12">
+                          <div class="form-group col-md-6 col-12">
                             <label id="inputState">is_approved</label>
                             <select id="inputState" class="form-control" name="is_approved">
                               <option value="">Select</option>
@@ -214,6 +211,7 @@
                           </div>
                           
                         </div>
+
                       
                     </div>
                     <div class="card-footer text-left">

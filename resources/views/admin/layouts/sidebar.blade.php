@@ -50,10 +50,13 @@
             </li>   
             <li class="dropdown {{ setActive([
               'admin.product.*',
+              'admin.seller.*',
               ])}}">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marker-alt"></i> <span>Manage Product</span></a>
               <ul class="dropdown-menu">
                 <li class="{{ setActive(['admin.product.*'])}}"><a href="{{route('admin.product.index')}}">Product</a></li>
+                <li class="{{ setActive(['admin.seller.product.*'])}}"><a href="{{route('admin.seller.product.index')}}">Seller Product</a></li>
+                <li class="{{ setActive(['admin.seller.pending.product.*'])}}"><a href="{{route('admin.seller.pending.product.index')}}">Pending Product</a></li>
               
               </ul>
             </li>          

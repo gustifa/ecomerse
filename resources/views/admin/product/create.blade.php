@@ -165,25 +165,28 @@
 
                         <div class="row">
                           
-                          <div class="form-group col-md-3 col-12">
-                            <label id="inputState">is_top</label>
-                            <select id="inputState" class="form-control" name="is_top">
-                            <option value="">Select</option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-
+                          <div class="form-group col-md-6 col-12">
+                            <label for="inputState">Product Type <code>*</code></label>
+                            <select id="inputState" class="form-control" name="product_type">
+                                <option value="">Select</option>
+                                <option value="new_arrival">New Arrival</option>
+                                <option value="featured_product">Featured</option>
+                                <option value="top_product">Top Product</option>
+                                <option value="best_product">Best Product</option>
                             </select>
                           </div>
-                          <div class="form-group col-md-3 col-12">
-                            <label id="inputState">is_featured</label>
-                            <select id="inputState" class="form-control" name="is_featured">
-                            <option value="">Select</option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-
-                            </select>
+                          <div class="form-group col-md-6 col-12">
+                          <label>Stock Quantity <code>*</code></label>
+                            <input type="number" min="0" class="form-control" name="qty" value="{{old('qty')}}">
                           </div>
-                          <div class="form-group col-md-3 col-12">
+
+                          
+                        </div>
+
+                        
+                        <div class="row">
+                          
+                          <div class="form-group col-md-6 col-12">
                             <label id="inputState">status <code>*</code></label>
                             <select id="inputState" class="form-control" name="status">
                               <option value="">Select</option>
@@ -191,7 +194,7 @@
                               <option value="0">Inactive</option>
                             </select>
                           </div>
-                          <div class="form-group col-md-3 col-12">
+                          <div class="form-group col-md-6 col-12">
                             <label id="inputState">is_approved <code>*</code></label>
                             <select id="inputState" class="form-control" name="is_approved">
                               <option value="">Select</option>

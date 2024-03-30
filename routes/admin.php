@@ -13,6 +13,8 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductImageGalleryController;
 use App\Http\Controllers\Backend\ProductVariantController;
 use App\Http\Controllers\Backend\ProductVariantItemController;
+use App\Http\Controllers\Backend\SellerProductsController;
+use App\Http\Controllers\Backend\FlashSaleController;
 
 /*Router Admin*/
 Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -62,3 +64,10 @@ Route::post('product-variant-item', [ProductVariantItemController::class, 'store
 Route::get('product-variant-item-edit/{variantItemId}', [ProductVariantItemController::class, 'edit'])->name('product-variant-item.edit');
 Route::put('product-variant-item-update/{variantItemId}', [ProductVariantItemController::class, 'update'])->name('product-variant-item.update');
 Route::delete('product-variant-item/{variantItemId}', [ProductVariantItemController::class, 'destroy'])->name('product-variant-item.destroy');
+
+Route::get('seller-product', [SellerProductsController::class, 'index'])->name('seller.product.index');
+Route::get('seller-pending-product', [SellerProductsController::class, 'sellerPending'])->name('seller.pending.product.index');
+Route::put('change-approve-status', [SellerProductsController::class, 'changeApproveStatus'])->name('change-approve-status');
+
+/* Route Flash Sell */
+Route::get('flash-sell', [FlashSaleController::class, 'index'])->name('flash-sell.index');
