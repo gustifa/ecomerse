@@ -66,6 +66,7 @@
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-plug"></i> <span>Ecomerse</span></a>
               <ul class="dropdown-menu">
                 <li class="{{ setActive(['admin.vendor-profile.index'])}}"><a class="nav-link" href="{{route('admin.vendor-profile.index')}}">Vendor Profile</a></li>
+                <li class="{{ setActive(['admin.vendor-profile.index'])}}"><a class="nav-link" href="{{route('admin.flash-sale.index')}}">Flash Sale</a></li>
                 <li><a class="nav-link" href="modules-chartjs.html">ChartJS</a></li>
                 <li><a class="nav-link" href="modules-datatables.html">DataTables</a></li>
                 <li><a class="nav-link" href="modules-flag.html">Flag</a></li>

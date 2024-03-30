@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
+use App\Http\Controllers\Frontend\FlashSaleController;
 
 
 /*
@@ -36,6 +37,8 @@ require __DIR__.'/auth.php';
 
 
 Route::get('admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+
+Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale');
 
 Route::get('/dashboard', function () {
     // return view('dashboard');

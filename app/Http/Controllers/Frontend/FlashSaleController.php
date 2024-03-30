@@ -4,20 +4,17 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Slider;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 
-class HomeController extends Controller
+
+class FlashSaleController extends Controller
 {
     public function index(){
-        $sliders = Slider::where('status', 1)->orderBy('serial', 'asc')->get();
-        // dd($sliders);
         $flashSaleDate = FlashSale::first();
-        $flashSaleItem = FlashSaleItem::where('show_at_home', 1)->where('status', 1)->get();
-        return view('frontend.home.home', 
+        $flashSaleItem = FlashSaleItem::where('status', 1)->paginate(1);
+        return view('frontend.pages.flash-sale', 
         compact(
-            'sliders',
             'flashSaleDate',
             'flashSaleItem'
         ));

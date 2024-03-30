@@ -1,22 +1,52 @@
-<section id="wsus__flash_sell" class="wsus__flash_sell_2">
-        <div class=" container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="offer_time" style="background: url({{asset('frontend/images/flash_sell_bg.jpg')}})">
-                        <div class="wsus__flash_coundown">
-                            <span class=" end_text">Flash Sale</span>
-                            <div class="simply-countdown simply-countdown-one"></div>
-                            <a class="common_btn" href="">see more <i class="fas fa-caret-right"></i></a>
+
+@extends('frontend.layouts.master')
+@section('content')
+    <section id="wsus__daily_deals">
+        <div class="container">
+            <div class="wsus__offer_details_area">
+                <div class="row">
+                    <div class="col-xl-6 col-md-6">
+                        <div class="wsus__offer_details_banner">
+                            <img src="images/offer_banner_2.png" alt="offrt img" class="img-fluid w-100">
+                            <div class="wsus__offer_details_banner_text">
+                                <p>apple watch</p>
+                                <span>up 50% 0ff</span>
+                                <p>for all poduct</p>
+                                <p><b>today only</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6">
+                        <div class="wsus__offer_details_banner">
+                            <img src="images/offer_banner_3.png" alt="offrt img" class="img-fluid w-100">
+                            <div class="wsus__offer_details_banner_text">
+                                <p>xiaomi power bank</p>
+                                <span>up 37% 0ff</span>
+                                <p>for all poduct</p>
+                                <p><b>today only</b></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row flash_sell_slider">
-                @foreach($flashSaleItem as $item)
-                @php
-                    $product = App\Models\Product::find($item->product_id);
-                @endphp
-                <div class="col-xl-3 col-sm-6 col-lg-4">
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="wsus__section_header rounded-0">
+                            <h3>flash sell</h3>
+                            <div class="wsus__offer_countdown">
+                                <span class="end_text">ends time :</span>
+                                <div class="simply-countdown simply-countdown-one"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    @foreach($flashSaleItem as $item)
+                    @php
+                        $product = App\Models\Product::find($item->product_id);
+                    @endphp
+                    <div class="col-xl-3 col-sm-6 col-lg-4">
                     <div class="wsus__product_item">
                         <span class="wsus__new">New</span>
                         @if(checkDiscount($product))
@@ -57,13 +87,16 @@
                             <a class="add_cart" href="#">add to cart</a>
                         </div>
                     </div>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
-
-
+                @if($flashSaleItem->hasPages())
+                    {{$flashSaleItem->links()}}
+                @endif
             </div>
         </div>
     </section>
+@endsection
 
 @push('scripts')
 <script>
